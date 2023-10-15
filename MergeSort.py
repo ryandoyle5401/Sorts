@@ -1,5 +1,80 @@
-# Python3 program to perform basic timSort
 MIN_MERGE = 32
+
+# Function to Use Inversion Count
+def mergeSort(arr, n):
+    # A temp_arr is created to store
+    # sorted array in merge function
+    temp_arr = [0]*n
+    return _mergeSort(arr, temp_arr, 0, n-1)
+
+# This Function will use MergeSort to count inversions
+def _mergeSort(arr, temp_arr, left, right):
+
+    # A variable inv_count is used to store
+    # inversion counts in each recursive call
+
+    # We will make a recursive call if and only if
+    # we have more than one element
+    if left < right:
+
+        # mid is calculated to divide the array into two subarrays
+        # Floor division is must in case of python
+
+        mid = (left + right)//2
+
+        # It will calculate inversion
+        # counts in the left subarray
+        _mergeSort(arr, temp_arr,left, mid)
+
+        # It will calculate inversion
+        # counts in right subarray
+        _mergeSort(arr, temp_arr,mid + 1, right)
+
+        # It will merge two subarrays in
+        # a sorted subarray
+        _merge(arr, temp_arr, left, mid, right)
+
+
+# This function will merge two subarrays in a single sorted subarray
+
+def _merge(arr, temp_arr, left, mid, right):
+    i = left     # Starting index of left subarray
+    j = mid + 1  # Starting index of right subarray
+    k = left     # Starting index of to be sorted subarray
+
+    # Conditions are checked to make sure that
+    # i and j don't exceed their subarray limits.
+
+    while i <= mid and j <= right:
+
+        # There will be no inversion if arr[i] <= arr[j]
+        if arr[i] <= arr[j]:
+            temp_arr[k] = arr[i]
+            k += 1
+            i += 1
+        else:
+            # Inversion will occur.
+            temp_arr[k] = arr[j]
+            k += 1
+            j += 1
+
+    # Copy the remaining elements of left
+    # subarray into temporary array
+    while i <= mid:
+        temp_arr[k] = arr[i]
+        k += 1
+        i += 1
+
+    # Copy the remaining elements of right
+    # subarray into temporary array
+    while j <= right:
+        temp_arr[k] = arr[j]
+        k += 1
+        j += 1
+
+    # Copy the sorted subarray into Original array
+    for loop_var in range(left, right + 1):
+        arr[loop_var] = temp_arr[loop_var]
 
 
 def calcMinRun(n):
@@ -20,7 +95,7 @@ def calcMinRun(n):
 
 # This function sorts array from left index to
 # to right index which is of size atmost RUN
-def insertionSort(arr, left, right):
+def insertionSort(array, left, right):
     for i in range(left + 1, right + 1):
         j = i
         while j > left and arr[j] < arr[j - 1]:
@@ -29,7 +104,7 @@ def insertionSort(arr, left, right):
 
 
 # Merge function merges the sorted runs
-def merge(arr, l, m, r):
+def merge(array, l, m, r):
 
     # original array is broken in two parts
     # left and right array
@@ -106,14 +181,24 @@ def timSort(arr):
 # Driver program to test above function
 if __name__ == "__main__":
 
-    arr = [-2, 7, 15, -14, 0, 15, 0,
-           7, -7, -4, -13, 5, 8, -14, 12]
-
-    print("Given Array is")
-    print(arr)
-
-    # Function Call
-    timSort(arr)
-
-    print("After Sorting Array is")
-    print(arr)
+    # arr = [-2, 7, 15, -14, 0, 15, 0,
+    #        7, -7, -4, -13, 5, 8, -14, 12]
+    #
+    # print("Given Array is")
+    # print(arr)
+    #
+    # # Function Call
+    # timSort(arr)
+    #
+    # print("After Sorting Array is")
+    # print(arr)
+    from time import time
+    start_time = time()
+    # Driver Code
+    # Given array is
+    arr = [1, 20, 6, 4]
+    n = len(arr)
+    result = mergeSort(arr, n)
+    print("Sorted Array", arr)
+    end_time = time()
+    print("execution time: ", end_time - start_time)
