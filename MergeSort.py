@@ -1,42 +1,38 @@
+from time import time
+import random
+
 MIN_MERGE = 32
 
-# Function to Use Inversion Count
+# Function that invokes MergeSort
 def mergeSort(arr, n):
     # A temp_arr is created to store
     # sorted array in merge function
     temp_arr = [0]*n
     return _mergeSort(arr, temp_arr, 0, n-1)
 
-# This Function will use MergeSort to count inversions
+# This function recursively breaks the arrays down to smaller sub-arrays
 def _mergeSort(arr, temp_arr, left, right):
-
-    # A variable inv_count is used to store
-    # inversion counts in each recursive call
-
     # We will make a recursive call if and only if
     # we have more than one element
     if left < right:
 
-        # mid is calculated to divide the array into two subarrays
+        # mid is calculated to divide the array into two sub-arrays
         # Floor division is must in case of python
 
         mid = (left + right)//2
 
-        # It will calculate inversion
-        # counts in the left subarray
+        # Recursively divide the left sub-array
         _mergeSort(arr, temp_arr,left, mid)
 
-        # It will calculate inversion
-        # counts in right subarray
+        # Recursively divide the right sub-array
         _mergeSort(arr, temp_arr,mid + 1, right)
 
-        # It will merge two subarrays in
+        # It will merge two sub-arrays in
         # a sorted subarray
         _merge(arr, temp_arr, left, mid, right)
 
 
-# This function will merge two subarrays in a single sorted subarray
-
+# This function will merge two sub-arrays in a single sorted subarray
 def _merge(arr, temp_arr, left, mid, right):
     i = left     # Starting index of left subarray
     j = mid + 1  # Starting index of right subarray
@@ -47,13 +43,11 @@ def _merge(arr, temp_arr, left, mid, right):
 
     while i <= mid and j <= right:
 
-        # There will be no inversion if arr[i] <= arr[j]
         if arr[i] <= arr[j]:
             temp_arr[k] = arr[i]
             k += 1
             i += 1
         else:
-            # Inversion will occur.
             temp_arr[k] = arr[j]
             k += 1
             j += 1
@@ -95,7 +89,7 @@ def calcMinRun(n):
 
 # This function sorts array from left index to
 # to right index which is of size atmost RUN
-def insertionSort(array, left, right):
+def insertionSort(arr, left, right):
     for i in range(left + 1, right + 1):
         j = i
         while j > left and arr[j] < arr[j - 1]:
@@ -104,7 +98,7 @@ def insertionSort(array, left, right):
 
 
 # Merge function merges the sorted runs
-def merge(array, l, m, r):
+def merge(arr, l, m, r):
 
     # original array is broken in two parts
     # left and right array
@@ -118,7 +112,7 @@ def merge(array, l, m, r):
     i, j, k = 0, 0, l
 
     # after comparing, we merge those two array
-    # in larger sub array
+    # in larger sub-array
     while i < len1 and j < len2:
         if left[i] <= right[j]:
             arr[k] = left[i]
@@ -149,7 +143,7 @@ def timSort(arr):
     n = len(arr)
     minRun = calcMinRun(n)
 
-    # Sort individual subarrays of size RUN
+    # Sort individual sub-arrays of size RUN
     for start in range(0, n, minRun):
         end = min(start + minRun - 1, n - 1)
         insertionSort(arr, start, end)
@@ -181,24 +175,23 @@ def timSort(arr):
 # Driver program to test above function
 if __name__ == "__main__":
 
-    # arr = [-2, 7, 15, -14, 0, 15, 0,
-    #        7, -7, -4, -13, 5, 8, -14, 12]
-    #
-    # print("Given Array is")
-    # print(arr)
-    #
-    # # Function Call
-    # timSort(arr)
-    #
-    # print("After Sorting Array is")
-    # print(arr)
-    from time import time
+    array1 = [random.randint(1,100000) for i in range(5000)]
+
+    print("Given Array is")
+    print(array1)
+
+    # Function Call
+    timSort(array1)
+
+    print("After Sorting Array is")
+    print(array1)
+
     start_time = time()
     # Driver Code
     # Given array is
-    arr = [1, 20, 6, 4]
-    n = len(arr)
-    result = mergeSort(arr, n)
-    print("Sorted Array", arr)
+    array2 = [random.randint(1,100000) for i in range(5000)]
+    n = len(array2)
+    result = mergeSort(array2, n)
+    print("Sorted Array", array2)
     end_time = time()
     print("execution time: ", end_time - start_time)
