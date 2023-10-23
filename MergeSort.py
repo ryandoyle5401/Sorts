@@ -1,9 +1,10 @@
 from time import time
+import copy
 import random
 
 MIN_MERGE = 32
 
-# Function that invokes MergeSort
+# MergeSort ----------------------------------------------------------------------
 def mergeSort(arr, n):
     # A temp_arr is created to store
     # sorted array in merge function
@@ -70,7 +71,7 @@ def _merge(arr, temp_arr, left, mid, right):
     for loop_var in range(left, right + 1):
         arr[loop_var] = temp_arr[loop_var]
 
-
+# TimSort --------------------------------------------------------------------------
 def calcMinRun(n):
     """Returns the minimum length of a
     run from 23 - 64 so that
@@ -87,8 +88,8 @@ def calcMinRun(n):
     return n + r
 
 
-# This function sorts array from left index to
-# to right index which is of size atmost RUN
+# This function sorts array from left index
+# to right index which is of size at most RUN
 def insertionSort(arr, left, right):
     for i in range(left + 1, right + 1):
         j = i
@@ -140,29 +141,29 @@ def merge(arr, l, m, r):
 # Iterative Timsort function to sort the
 # array[0...n-1] (similar to merge sort)
 def timSort(arr):
-    n = len(arr)
-    minRun = calcMinRun(n)
+    length = len(arr)
+    minRun = calcMinRun(length)
 
     # Sort individual sub-arrays of size RUN
-    for start in range(0, n, minRun):
-        end = min(start + minRun - 1, n - 1)
+    for start in range(0, length, minRun):
+        end = min(start + minRun - 1, length - 1)
         insertionSort(arr, start, end)
 
     # Start merging from size RUN (or 32). It will merge
     # to form size 64, then 128, 256 and so on ....
     size = minRun
-    while size < n:
+    while size < length:
 
         # Pick starting point of left sub array. We
         # are going to merge arr[left..left+size-1]
         # and arr[left+size, left+2*size-1]
         # After every merge, we increase left by 2*size
-        for left in range(0, n, 2 * size):
+        for left in range(0, length, 2 * size):
 
             # Find ending point of left sub array
             # mid+1 is starting point of right sub array
-            mid = min(n - 1, left + size - 1)
-            right = min((left + 2 * size - 1), (n - 1))
+            mid = min(length - 1, left + size - 1)
+            right = min((left + 2 * size - 1), (length - 1))
 
             # Merge sub array arr[left.....mid] &
             # arr[mid+1....right]
@@ -175,23 +176,20 @@ def timSort(arr):
 # Driver program to test above function
 if __name__ == "__main__":
 
-    array1 = [random.randint(1,100000) for i in range(5000)]
+    array1 = [random.randint(1,1000000) for i in range(500000)]
+    array2 = copy.deepcopy(array1) # deepcopy of array1
+    n = len(array1)  # length of the array
 
-    print("Given Array is")
-    print(array1)
+    # MergeSort
+    t0 = time()
+    # MergeSort function call
+    mergeSort(array1, n)
+    t1 = time()
+    print("MergeSort time: ", t1-t0, "\n")
 
-    # Function Call
-    timSort(array1)
-
-    print("After Sorting Array is")
-    print(array1)
-
-    start_time = time()
-    # Driver Code
-    # Given array is
-    array2 = [random.randint(1,100000) for i in range(5000)]
-    n = len(array2)
-    result = mergeSort(array2, n)
-    print("Sorted Array", array2)
-    end_time = time()
-    print("execution time: ", end_time - start_time)
+    # TimSort
+    t2 = time()
+    # TimSort function call
+    timSort(array2)
+    t3 = time()
+    print("TimSort time:", t3-t2)
