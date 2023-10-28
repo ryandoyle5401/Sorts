@@ -176,20 +176,20 @@ def timSort(arr):
 # Driver program to test above function
 if __name__ == "__main__":
 
-    array1 = [random.randint(1,9000000) for i in range(10000000)]
+    array1 = [random.randint(1,100_000_000) for i in range(50_000_000)]
     array2 = copy.deepcopy(array1) # deepcopy of array1
     n = len(array1)  # length of the array
 
     # MergeSort
     t0 = time()
     # MergeSort function call
-    #mergeSort(array1, n)
+    mergeSort(array1, n)
     t1 = time()
     print("MergeSort time: ", t1-t0, "\n")
 
     # TimSort
     t2 = time()
     # TimSort function call
-    #timSort(array2)
+    timSort(array2)
     t3 = time()
     print("TimSort time:", t3-t2)
