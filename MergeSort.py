@@ -183,13 +183,13 @@ if __name__ == "__main__":
     # MergeSort
     t0 = time()
     # MergeSort function call
-    #mergeSort(array1, n)
+    mergeSort(array1, n)
     t1 = time()
     print("MergeSort time: ", t1-t0, "\n")
 
     # TimSort
     t2 = time()
     # TimSort function call
-    #timSort(array2)
+    timSort(array2)
     t3 = time()
     print("TimSort time:", t3-t2)
