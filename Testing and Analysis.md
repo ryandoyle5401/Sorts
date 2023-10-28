@@ -17,6 +17,6 @@ TimSort is a hybrid sorting algorithm that combines aspects of both Merge Sort a
 Since Merge Sort and TimSort are much faster than Bubble Sort and work well with large data sets, I used two arrays both with a size of 10 million integers. The array gets its value from using the random class's randint() function to generate 10 million different integers with a range of 1 to 9 million, just so there can be some duplicates and numbers in partial order for TimSort.
 ## The Execution
 On average, the Merge Sort finished execution in 107.76 seconds, and the TimSort finished execution within 106.47 seconds. Merge Sort has an average-case time complexity of O(nlogn) and a memory complexity of O(n). TimSort, on the other hand, also has an average-case time complexity of O(nlogn) and a best-case time complexity of O(n), making it quicker than Merge Sort. Similar to Merge Sort, TimSort also has a memory complexity of O(n).
-MergeSort1 time ![MergeSort1 time](MergeSort1.png)
-MergeSort2 time ![MergeSort2 time](MergeSort2.png)
-MergeSort3 time ![MergeSort3 time](MergeSort3.png)
+MergeSort1 time ![MergeSort1 time](Merge1.png)
+MergeSort2 time ![MergeSort2 time](Merge2.png)
+MergeSort3 time ![MergeSort3 time](Merge3.png)
